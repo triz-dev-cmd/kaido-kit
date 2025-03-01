@@ -5,6 +5,7 @@ namespace App\Filament\Resources;
 use App\Filament\Exports\BookExporter;
 use App\Filament\Imports\BookImporter;
 use App\Filament\Resources\BookResource\Pages;
+use App\Filament\Resources\BookResource\Widgets;
 use App\Models\Book;
 use BezhanSalleh\FilamentShield\Contracts\HasShieldPermissions;
 use Filament\Forms;
@@ -71,17 +72,6 @@ class BookResource extends Resource implements HasShieldPermissions
                     ->searchable(),
                 Tables\Columns\TextColumn::make('author')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('created_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('updated_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-            ])
-            ->filters([
-                //
             ])
             ->actions([
                 Tables\Actions\ViewAction::make(),
@@ -126,5 +116,12 @@ class BookResource extends Resource implements HasShieldPermissions
                     TextEntry::make('email'),
                 ]),
             ]);
+    }
+
+    public static function getWidgets(): array
+    {
+        return [
+            Widgets\FilterBooksWidget::class,
+        ];
     }
 }
